@@ -1,41 +1,44 @@
 import React from "react";
-import Banner from "./Banner";
-import CourseList from "./CourseList";
+import { useData } from "./utilities/firebase";
+import CourseList from "./components/CourseList";
+import Banner from "./components/Banner";
 
-const schedule = {
-  title: "CS Courses for 2018-2019",
-  courses: {
-    F101: {
-      id: "F101",
-      meets: "MWF 11:00-11:50",
-      title: "Computer Science: Concepts, Philosophy, and Connections",
-    },
-    F110: {
-      id: "F110",
-      meets: "MWF 10:00-10:50",
-      title: "Intro Programming for non-majors",
-    },
-    S313: {
-      id: "S313",
-      meets: "TuTh 15:30-16:50",
-      title: "Tangible Interaction Design and Learning",
-    },
-    S314: {
-      id: "S314",
-      meets: "TuTh 9:30-10:50",
-      title: "Tech & Human Interaction",
-    },
-  },
+const App = () => {
+  const [courses, loading, error] = useData(); 
+
+  if (loading) return <h1>Loading Schedule...</h1>;
+  if (error) return <h1>Error loading data: {error.message}</h1>;
+  if (!courses || typeof courses !== "object") return <h1>No courses available.</h1>;
+
+  console.log("Extracted Courses:", courses);
+
+  return (
+    <div className="container">
+      <Banner title="CS Courses for 2018-2019" />
+      <CourseList courses={courses} />
+    </div>
+  );
 };
-
-const App = () => (
-  <div>
-    <Banner title={schedule.title} />
-    <CourseList courses={schedule.courses} />
-  </div>
-);
 
 export default App;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
