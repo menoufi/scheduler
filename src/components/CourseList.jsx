@@ -10,7 +10,7 @@ const CourseList = ({ courses }) => {
 
   if (!courses || typeof courses !== "object") {
     console.error("Invalid courses format:", courses);
-    return <h3>No courses available.</h3>;
+    return <h3>No courses available!.</h3>;
   }
 
   
